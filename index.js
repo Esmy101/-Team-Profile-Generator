@@ -94,4 +94,4 @@ async function employeeInfo(){
 
 employeeInfo()
 
-// TODO: make while loop to ask if they want to add more employees, make HTML template, Make github clickable, make email clickable to send you to email the person, if time make style adjustments 
+// TODO: make while loop to ask if they want to add more employees, make HTML template,if time make style adjustments 
