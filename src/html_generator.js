@@ -1,4 +1,11 @@
-function boxes (employees){
+
+function makeBoxes(employees){//grabbing the HTML for the employees
+let htmlBoxes = employees.forEach(element => element.generateHTML())
+}
+
+
+
+function boxes (employees){ //adding the employee html
     return (`<!DOCTYPE html>
     <html lang="en">
     <head>
