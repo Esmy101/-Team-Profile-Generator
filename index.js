@@ -3,6 +3,8 @@ const Employee = require('./lib/Employee');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manger');
 const Engineer = require('./lib/Engineer');
+const fs = require('fs');
+const boxes = require('./src/html_generator')
 
 let employees = []
 
@@ -51,7 +53,7 @@ async function employeeInfo(){
             //console.log(newEmployee)
             //console.log(newEmployee.generateHTML())
         //Add manager to list
-        employees.push(newEmployee)    
+        employees.push(newEmployee.generateHTML())    
     } 
     else if (answers.title === 'Engineer'){
         let github = await prompt ((
@@ -69,7 +71,7 @@ async function employeeInfo(){
             //console.log(newEmployee)
            // console.log(newEmployee.generateHTML())
         //Add engineer to list
-        employees.push(newEmployee)  
+        employees.push(newEmployee.generateHTML())  
     } 
     else{
         let school = await prompt ((
@@ -87,11 +89,47 @@ async function employeeInfo(){
             //console.log(newEmployee)
             //console.log(newEmployee.generateHTML())
         //Add engineer to list
-        employees.push(newEmployee)     
+
+        employees.push(newEmployee.generateHTML())     
     }
 
 }
 
-employeeInfo()
+async function generateHTML(){ 
+    //adding team members
+    let repeat = true
+    while (repeat){
+        await employeeInfo()
+        repeat = await prompt([
+            {
+                type: 'list',
+                message: 'Are there more employees?',
+                name:'question',  
+                choices: ['Yes','No']
+            }
+        ])
+        .then((answers)=>{
+            if ('Yes' === answers.question){
+                return true
+            }
+            return false
+        })
+    }
 
-// TODO: make while loop to ask if they want to add more employees, make HTML template, make the TEST file work, if time make style adjustments 
+    
+
+    fs.writeFile('team.html', 
+    boxes(employees.reduce( 
+        (previousValue, currentValue) => previousValue + currentValue,
+        ""
+    ))
+    , (err) =>
+    err ? console.log(err) : console.log('Successfully created a Team!')
+    );
+
+}
+
+
+generateHTML()
+
+// TODO: make while loop to ask if they want to add more employees

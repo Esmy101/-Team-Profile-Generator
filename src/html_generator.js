@@ -1,10 +1,3 @@
-
-function makeBoxes(employees){//grabbing the HTML for the employees
-let htmlBoxes = employees.forEach(element => element.generateHTML())
-}
-
-
-
 function boxes (employees){ //adding the employee html
     return (`<!DOCTYPE html>
     <html lang="en">
@@ -25,8 +18,10 @@ function boxes (employees){ //adding the employee html
 
        
         <div class="row row-cols-1 row-cols-md-3 g-4">
-           ${}
+           ${employees}
          </div>   
     </body>
  </html>`)
 }
+
+module.exports = boxes
